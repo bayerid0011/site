@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://finguard-insights.com/sitemap.xml
