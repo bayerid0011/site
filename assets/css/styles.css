@@ -12,3 +12,12 @@
 @media(prefers-reduced-motion:reduce){.ticker-track,.scan-dot,.map-node{animation:none!important}}
 @media(max-width:970px){.reg-alert-ticker{grid-template-columns:auto 1fr}.ticker-date{display:none}.trust-grid{grid-template-columns:1fr 1fr}.trust-stat:nth-child(2){border-right:0}.trust-stat:nth-child(-n+2){border-bottom:1px solid var(--line)}.news-grid-six{grid-template-columns:1fr 1fr;grid-template-rows:auto}.news-grid-six .story.featured,.news-grid-six .story:nth-child(n){grid-column:auto;grid-row:auto}.news-grid-six .story.featured{grid-column:1/-1}.news-grid-six .story:nth-child(6) .story-link{display:block}.news-grid-six .story:nth-child(6) img{width:100%;height:220px;margin-bottom:12px}}
 @media(max-width:640px){.reg-alert-ticker{height:32px;grid-template-columns:1fr}.ticker-label{display:none}.ticker-track{padding-left:12px}.trust-grid{grid-template-columns:1fr 1fr}.trust-stat{padding:17px 13px}.trust-stat strong{font-size:24px}.news-grid-six{grid-template-columns:1fr}.news-grid-six .story.featured{grid-column:auto}.news-grid-six .story img,.news-grid-six .story.featured img{height:220px}.jurisdiction-meta{grid-template-columns:1fr}.jurisdiction-meta span{padding:8px 12px}}
+
+/* Quiz V7: IP-assisted phone mask, no visible country question */
+.quiz-step[data-step="4"]>.field{display:none!important}
+.phone{grid-template-columns:190px 1fr;gap:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--bg)}
+.phone select,.phone input{border:0!important;border-radius:0!important;background:transparent!important}
+.phone select{border-right:1px solid var(--line)!important;font-weight:750;min-width:0}
+.phone input{min-width:0}
+.geo-hint{font-size:10px;color:var(--muted);margin-top:7px;line-height:1.4}
+@media(max-width:640px){.phone{grid-template-columns:150px 1fr}.phone select{font-size:12px}.phone input{font-size:14px}}
