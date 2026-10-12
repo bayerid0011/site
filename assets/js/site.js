@@ -35,20 +35,21 @@ const FG_HOME_PHOTOS={
  "offshore-forex-regulatory-perimeter":"https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=85",
  "broker-chart-manipulation-signs":"https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=1600&q=85",
  "hyip-ai-yield-math":"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1600&q=85",
- "recovery-scam-second-loss":"https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=85"
+ "recovery-scam-second-loss":"https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=85",
+ "fake-exchange-withdrawal-lockout":"https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1600&q=85"
 };
 function fgEscapeHtml(value){
  return String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 function fgRenderFeaturedHome(){
  const host=$("#rotating-investigations");
- if(!host)return;
- const order=["merchant-category-code-risk","card-dispute-120-540-days","offshore-forex-regulatory-perimeter","broker-chart-manipulation-signs","hyip-ai-yield-math","recovery-scam-second-loss"];
- const picks=order.map(slug=>FG_ARTICLES.find(a=>a[0]===slug)).filter(Boolean);
- host.innerHTML=picks.map((a,i)=>{
-  const photo=FG_HOME_PHOTOS[a[0]]||FG_HOME_PHOTOS["merchant-category-code-risk"];
-  const label=i===0?'<span class="featured-label">Editor’s pick</span>':'';
-  return '<article class="story '+(i===0?'featured':'')+'"><a class="story-link" href="articles/'+a[0]+'.html"><img class="photo-image" src="'+photo+'" alt="'+fgEscapeHtml(a[2])+'" '+(i===0?'loading="eager" fetchpriority="high"':'loading="lazy"')+' decoding="async"><div class="meta">'+fgEscapeHtml(a[1])+'</div>'+label+'<h3>'+fgEscapeHtml(a[2])+'</h3><p>'+fgEscapeHtml(a[3])+'</p><span class="read">Read Analysis →</span></a></article>';
+ if(!host||host.querySelector(".story"))return;
+ const order=["fake-exchange-withdrawal-lockout","offshore-forex-regulatory-perimeter","card-dispute-120-540-days","broker-chart-manipulation-signs","hyip-ai-yield-math","recovery-scam-second-loss"];
+ host.innerHTML=order.map((slug,i)=>{
+  const a=FG_ARTICLES.find(item=>item[0]===slug);
+  if(!a)return "";
+  const photo=FG_HOME_PHOTOS[slug]||FG_HOME_PHOTOS["merchant-category-code-risk"];
+  return '<article class="story '+(i===0?'featured':'')+'"><a class="story-link" href="articles/'+slug+'.html"><img src="'+photo+'" alt="'+fgEscapeHtml(a[2])+'" loading="'+(i===0?'eager':'lazy')+'" decoding="async"><div class="meta">'+fgEscapeHtml(a[1])+'</div><h3>'+fgEscapeHtml(a[2])+'</h3><p>'+fgEscapeHtml(a[3])+'</p><span class="read">Read Analysis →</span></a></article>';
  }).join("");
 }
 function fgApplyPhotoPresentation(){
@@ -201,8 +202,41 @@ function fgInitQuizzes(){
   showStep(1);
  });
 }
+function fgInitArticlePhotoViewer(){
+ const figures=$$('.article .article-image');
+ if(!figures.length)return;
+ const dialog=document.createElement('dialog');
+ dialog.className='photo-lightbox';
+ dialog.setAttribute('aria-label','Article photograph');
+ dialog.innerHTML='<button type="button" class="photo-close" aria-label="Close enlarged image">×</button><img alt=""><p class="photo-lightbox-caption"></p>';
+ document.body.appendChild(dialog);
+ const enlarged=$('img',dialog);
+ const caption=$('.photo-lightbox-caption',dialog);
+ const close=()=>{if(dialog.open)dialog.close()};
+ $('.photo-close',dialog).addEventListener('click',close);
+ dialog.addEventListener('click',event=>{if(event.target===dialog)close()});
+ figures.forEach(figure=>{
+  const img=$('img',figure);
+  if(!img)return;
+  const trigger=document.createElement('button');
+  trigger.type='button';
+  trigger.className='article-photo-trigger';
+  trigger.setAttribute('aria-label','Enlarge article photograph');
+  trigger.title='Click to enlarge photograph';
+  img.parentNode.insertBefore(trigger,img);
+  trigger.appendChild(img);
+  trigger.addEventListener('click',()=>{
+   enlarged.src=img.currentSrc||img.src;
+   enlarged.alt=img.alt;
+   caption.textContent=$('figcaption',figure)?.textContent||'Editorial photograph';
+   if(typeof dialog.showModal==='function')dialog.showModal();
+   else window.open(img.src,'_blank','noopener,noreferrer');
+  });
+ });
+}
 fgRenderFeaturedHome();
 fgApplyPhotoPresentation();
+fgInitArticlePhotoViewer();
 fgInitQuizzes();
 
 })();

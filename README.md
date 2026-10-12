@@ -23,3 +23,7 @@ The homepage uses dated notices from the FCA and links to the original regulator
 - Add an unsubscribe process and update the privacy policy before activating a mailing-list provider.
 - Do not publish unverified warnings, invented metrics, fabricated testimonials or guaranteed outcomes.
 - Test all internal links, mobile layout and the GitHub Pages deployment after each update.
+
+## Editorial homepage and photographs
+- The homepage contains six static, crawlable, fully clickable article cards, even if JavaScript is disabled. Priority topics are withdrawal lockouts, offshore Forex brokers, card disputes, suspicious price feeds, unrealistic investment returns and recovery scams.
+- The hero includes a clickable editorial photograph leading to the offshore Forex explainer. Article images open in an accessible enlarge-photo dialog when JavaScript is enabled.
