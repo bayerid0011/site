@@ -53,7 +53,7 @@ function fgRenderFeaturedHome(){
  }).join("");
 }
 function fgApplyPhotoPresentation(){
- const fallback=FG_HOME_PHOTOS["merchant-category-code-risk"];
+ const fallback=location.pathname.includes("/articles/")?"../assets/img/hero-cyber-shield.svg":"assets/img/hero-cyber-shield.svg";
  $$('img').forEach(img=>{
   const card=img.closest('a.story-link,a.card-link');
   const figure=img.closest('.article-image');
@@ -82,6 +82,11 @@ function fgInitQuizzes(){
   const answers={};
   const form=$('form',quiz);
   const country=quiz.querySelector('[data-country],select[name="country"]');
+  const dial=$("select[name=\"dial_code\"]",quiz);
+  if(dial){
+   const regions={GB:"+44",DE:"+49",FR:"+33",ES:"+34",IT:"+39",NL:"+31",AT:"+43",CH:"+41",IE:"+353",PT:"+351",PL:"+48",SE:"+46",NO:"+47",DK:"+45",FI:"+358",AU:"+61"};
+   try{const locale=new Intl.Locale(navigator.languages?.[0]||navigator.language||"en-GB");if(regions[locale.region])dial.value=regions[locale.region]}catch(e){}
+  }
   const endpoint=quiz.dataset.endpoint||'../submit.php';
   const thankyou=quiz.dataset.thankyou||'../thank-you.html';
   let status=null;
@@ -157,7 +162,7 @@ function fgInitQuizzes(){
    if(country)answers.country=country.value;
    const fd=new FormData(form);
    fd.set('answers',JSON.stringify(answers));
-   fd.set('country',country?.value||answers.country||'');
+   if(country)fd.set('country',country.value);
    fd.set('consent',$('input[type="checkbox"][required]',form)?.checked?'yes':'no');
    const name=String(fd.get('first_name')||'').trim();
    const email=String(fd.get('email')||'').trim();
@@ -175,7 +180,8 @@ function fgInitQuizzes(){
      'Name: '+name,
      'Email: '+email,
      'Phone: '+phone,
-     'Country: '+(fd.get('country')||'Not provided'),
+     'Article: '+(fd.get('article')||location.pathname.split('/').pop()),
+     'Phone dial code: '+(fd.get('dial_code')||'Not provided'),
      '',
      'Assessment answers:',
      'Service: '+(answers.service||'Not provided'),

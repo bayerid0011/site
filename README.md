@@ -27,3 +27,7 @@ The homepage uses dated notices from the FCA and links to the original regulator
 ## Editorial homepage and photographs
 - The homepage contains six static, crawlable, fully clickable article cards, even if JavaScript is disabled. Priority topics are withdrawal lockouts, offshore Forex brokers, card disputes, suspicious price feeds, unrealistic investment returns and recovery scams.
 - The hero includes a clickable editorial photograph leading to the offshore Forex explainer. Article images open in an accessible enlarge-photo dialog when JavaScript is enabled.
+
+## Article assessment
+- The same five-step assessment is embedded in all 30 articles; there is no country-of-residence selection. The phone-prefix dropdown may use the browser language region as an initial suggestion, with manual correction available.
+- The static GitHub Pages preview cannot run `submit.php`; the enquiry falls back to a prefilled email that the visitor must send. No lead should be counted as received until the email is actually sent and received. A production form backend is still required.
