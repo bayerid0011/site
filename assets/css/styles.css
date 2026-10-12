@@ -43,3 +43,24 @@
 .newsletter-status{font-weight:700;color:var(--navy)}
 @media(max-width:970px){.tracker .trow{grid-template-columns:1fr 1fr;gap:8px}.tracker .trow a{grid-column:1/-1}.newsletter-panel{grid-template-columns:1fr;gap:24px}}
 @media(max-width:640px){.newsletter-section{padding-top:42px;padding-bottom:46px}.newsletter-panel{padding:22px 16px}.newsletter-copy h2{font-size:31px}}
+
+
+/* Photo presentation: real editorial photographs, consistent crops and gentle interaction */
+.news-grid-six .story.featured{grid-row:auto}
+.news-grid-six .story.featured img{height:auto;aspect-ratio:16/9}
+.news-grid-six .story.featured h3{font-size:25px}
+.story img,.card img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:var(--soft2);transition:transform .35s ease,filter .35s ease}
+.story-link,.card-link{overflow:hidden}
+.story-link img,.card-link img{border-radius:5px}
+.story-link:hover img,.card-link:hover img{transform:scale(1.035);filter:saturate(1.08)}
+.story-link:focus-visible,.card-link:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.article-image{margin:28px 0;padding:0;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--soft2);box-shadow:var(--shadow)}
+.article-image img{display:block;width:100%;height:auto;max-height:520px;aspect-ratio:16/9;object-fit:cover;background:var(--soft2);transition:transform .35s ease}
+.article-image:hover img{transform:scale(1.012)}
+.article-image figcaption{padding:9px 13px;background:var(--soft);border-top:1px solid var(--line);font-size:11px;line-height:1.45;color:var(--muted)}
+.photo-image{background:var(--soft2)}
+.quiz-back{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;padding:8px 12px;border:1px solid var(--line);border-radius:4px;background:var(--soft);color:var(--ink);font-size:12px;font-weight:800;cursor:pointer}
+.quiz-validation{margin:10px 0;padding:10px 12px;border-left:3px solid #b45309;background:var(--soft);color:var(--ink);font-size:12px}
+.quiz-submit-status{margin:12px 0 0;color:var(--muted);font-size:12px}
+.qopt:focus-visible,.quiz-back:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+@media(max-width:640px){.news-grid-six .story.featured img,.story img,.story.featured img,.card img{height:auto;aspect-ratio:16/9}.article-image{margin:22px 0}.article-image img{max-height:none}}
