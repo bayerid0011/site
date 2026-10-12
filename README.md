@@ -1,29 +1,25 @@
-# FinGuard Insights V5
+# FinGuard Insights V6
 
-## Implemented
-- 30 expert article pages across six research desks.
-- Single-column article view, max-width 800px; no empty right sidebar.
-- Article H1 36px desktop / 32px mobile.
-- 32px vertical spacing around article images.
-- Hero uses a local cybersecurity SVG.
-- Equal Hero CTA buttons: Platform Risk Check scrolls to the on-page checklist; Read Investigations scrolls to Latest Investigations.
-- Full article cards are clickable.
-- Every article has: problem, technical mechanism, legal/regulatory analysis, evidence, practical steps, sources and an integrated checklist.
-- Fixed “Last reviewed: October 2026” dates. Dates are not auto-refreshed without a real editorial review.
+## Homepage update
+- Editorial-first homepage: investigations, research desks and official regulatory notices lead the page.
+- Hero copy reframed as independent financial-safety and regulatory analysis.
+- Featured MCC/card-dispute investigation is pinned; five additional stories rotate across the other five research desks.
+- Six unique article cards remain visible, with generated category-specific SVG artwork.
+- Regulatory ticker and alert table link to individual FCA warning notices and show source dates.
+- Replaced the homepage's five-step lead quiz with a weekly digest request form.
+- Legacy quiz URLs redirect to the digest section.
+- Old quiz links in article and policy pages are rewritten to the newsletter section by the shared JavaScript.
+- Privacy Policy no longer describes the old quiz or IP-based phone-code lookup.
 
-## Compliance corrections
-- Used “Visa rules referenced / Mastercard dispute rules referenced / SEPA rulebook referenced” rather than language implying certification or affiliation.
-- PSD3/PSR are described as progressing toward adoption, not current law.
-- 120/540-day card windows are condition-specific, not universal eligibility.
-- SEPA Recall is a defined scheme procedure, not a guaranteed reversal.
-- Correspondent-bank AML duties are not presented as automatic sender reimbursement rights.
-- Recovery-scam content distinguishes legitimate professional retainers from false regulator/bank “release” fees.
+## Newsletter status
+The current site is deployed on GitHub Pages, which serves static files only. The digest form currently opens a prefilled email request to `compliance@finguard-insights.com`; it does not automatically store subscribers or send campaigns. Connect an email-marketing provider or approved webhook before treating subscriptions as automated.
 
-## Before paid traffic
-1. Replace the business address placeholder.
-2. Configure submit.php email or webhook.
-3. Update Privacy/Advertising Disclosure for the real operator, CRM and referral recipients.
-4. Refresh Watchlist sources/dates.
-5. Configure consented analytics/pixels without sending sensitive form data.
-6. Self-host stock images as WebP/AVIF for best performance.
-7. Run Lighthouse after real deployment.
+## Regulatory notices
+The homepage uses dated notices from the FCA and links to the original regulator pages. The snapshot is editorially maintained, not a live regulator API. Recheck every notice before changing the dates or status.
+
+## Before public launch
+- Verify the publication's legal operator, working contact email and real business address.
+- Confirm the privacy notice against the actual hosting, email, analytics and advertising setup.
+- Add an unsubscribe process and update the privacy policy before activating a mailing-list provider.
+- Do not publish unverified warnings, invented metrics, fabricated testimonials or guaranteed outcomes.
+- Test all internal links, mobile layout and the GitHub Pages deployment after each update.

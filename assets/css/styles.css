@@ -21,3 +21,25 @@
 .phone input{min-width:0}
 .geo-hint{font-size:10px;color:var(--muted);margin-top:7px;line-height:1.4}
 @media(max-width:640px){.phone{grid-template-columns:150px 1fr}.phone select{font-size:12px}.phone input{font-size:14px}}
+
+/* Editorial homepage V6: newsletter, source-linked ticker and regulatory table */
+.ticker-track a{color:inherit;text-decoration:none;opacity:.95}.ticker-track a:hover{color:#fff;text-decoration:underline}
+.tracker .trow{grid-template-columns:1.35fr .45fr .72fr 1.35fr .72fr auto}
+.newsletter-section{padding-top:64px;padding-bottom:72px}
+.newsletter-panel{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:start;padding:clamp(24px,4vw,48px);border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.newsletter-copy h2{font:500 clamp(30px,3.3vw,42px)/1.08 Georgia,"Times New Roman",serif;color:var(--navy);margin:0 0 16px}
+.newsletter-copy>p{color:var(--muted);line-height:1.7}
+.newsletter-copy ul{padding-left:19px;color:var(--muted);line-height:1.9}
+.newsletter-editorial-note{font-size:12px;border-left:3px solid var(--blue);padding-left:14px}
+.newsletter-form{display:grid;gap:13px;min-width:0}
+.newsletter-form .field{display:grid;gap:6px;margin:0}
+.newsletter-form .field label{font-size:12px;font-weight:750;color:var(--ink)}
+.newsletter-form input[type="text"],.newsletter-form input[type="email"],.newsletter-form input:not([type]){width:100%;min-height:46px;padding:12px 13px;border:1px solid var(--line);border-radius:3px;background:var(--bg);color:var(--ink);font:inherit}
+.newsletter-consent{display:flex;gap:10px;align-items:flex-start;font-size:11px;line-height:1.55;color:var(--muted)}
+.newsletter-consent input{margin-top:3px;flex:0 0 auto}
+.newsletter-consent a{color:var(--blue)}
+.newsletter-form .btn{width:100%;min-height:48px}
+.newsletter-note,.newsletter-status{font-size:11px;line-height:1.55;color:var(--muted);margin:0}
+.newsletter-status{font-weight:700;color:var(--navy)}
+@media(max-width:970px){.tracker .trow{grid-template-columns:1fr 1fr;gap:8px}.tracker .trow a{grid-column:1/-1}.newsletter-panel{grid-template-columns:1fr;gap:24px}}
+@media(max-width:640px){.newsletter-section{padding-top:42px;padding-bottom:46px}.newsletter-panel{padding:22px 16px}.newsletter-copy h2{font-size:31px}}
