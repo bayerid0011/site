@@ -64,3 +64,5 @@
 .quiz-submit-status{margin:12px 0 0;color:var(--muted);font-size:12px}
 .qopt:focus-visible,.quiz-back:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 @media(max-width:640px){.news-grid-six .story.featured img,.story img,.story.featured img,.card img{height:auto;aspect-ratio:16/9}.article-image{margin:22px 0}.article-image img{max-height:none}}
+
+.featured-label{display:inline-flex;align-items:center;margin:2px 0 4px;padding:4px 8px;border:1px solid var(--line);border-radius:3px;background:var(--soft2);color:var(--blue);font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
