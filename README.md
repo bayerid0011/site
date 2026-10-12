@@ -31,3 +31,6 @@ The homepage uses dated notices from the FCA and links to the original regulator
 ## Article assessment
 - The same five-step assessment is embedded in all 30 articles; there is no country-of-residence selection. The phone-prefix dropdown may use the browser language region as an initial suggestion, with manual correction available.
 - The static GitHub Pages preview cannot run `submit.php`; the enquiry falls back to a prefilled email that the visitor must send. No lead should be counted as received until the email is actually sent and received. A production form backend is still required.
+
+## Photo deployment
+- GitHub Actions downloads the shared Unsplash editorial photographs into the deployed `assets/photos/` directory and rewrites article and homepage image URLs to local paths when download succeeds. If the image host is temporarily unavailable at build time, original image URLs remain as a fallback. Images are illustrative and not representations of a specific case.
