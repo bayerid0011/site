@@ -85,10 +85,47 @@ function fgInitQuizzes(){
   const answers={};
   const form=$('form',quiz);
   const country=quiz.querySelector('[data-country],select[name="country"]');
-  const dial=$("select[name=\"dial_code\"]",quiz);
-  if(dial){
-   const regions={GB:"+44",DE:"+49",FR:"+33",ES:"+34",IT:"+39",NL:"+31",AT:"+43",CH:"+41",IE:"+353",PT:"+351",PL:"+48",SE:"+46",NO:"+47",DK:"+45",FI:"+358",AU:"+61"};
-   try{const locale=new Intl.Locale(navigator.languages?.[0]||navigator.language||"en-GB");if(regions[locale.region])dial.value=regions[locale.region]}catch(e){}
+  const phoneInput=$('input[name="phone"]',quiz);
+  const phoneHint=$('[data-phone-hint]',quiz);
+  let phoneLookupStarted=false;
+  async function fgSuggestPhoneCode(){
+   if(!phoneInput||phoneLookupStarted)return;
+   phoneLookupStarted=true;
+   let prefix='',source='network';
+   try{
+    const saved=JSON.parse(sessionStorage.getItem('fg_phone_geo')||'null');
+    if(saved&&Date.now()-saved.time<43200000&&/^\+\d{1,4}$/.test(saved.code))prefix=saved.code;
+   }catch(e){}
+   if(!prefix){
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),4500);
+    try{
+     const response=await fetch('https://ipapi.co/json/',{signal:controller.signal,credentials:'omit',cache:'no-store'});
+     if(!response.ok)throw new Error('Geo unavailable');
+     const data=await response.json();
+     if(data.error)throw new Error('Geo unavailable');
+     const candidate=String(data.country_calling_code||'').split(',')[0].replace(/\s/g,'');
+     if(/^\+\d{1,4}$/.test(candidate)){
+      prefix=candidate;
+      try{sessionStorage.setItem('fg_phone_geo',JSON.stringify({code:prefix,time:Date.now()}))}catch(e){}
+     }
+    }catch(e){}finally{clearTimeout(timer)}
+   }
+   if(!prefix){
+    source='browser';
+    const codes={GB:'+44',DE:'+49',FR:'+33',ES:'+34',IT:'+39',NL:'+31',AT:'+43',CH:'+41',IE:'+353',PT:'+351',PL:'+48',SE:'+46',NO:'+47',DK:'+45',FI:'+358',AU:'+61',UA:'+380',TR:'+90',US:'+1',CA:'+1',BE:'+32',CZ:'+420',SK:'+421',HU:'+36',RO:'+40',BG:'+359',GR:'+30',HR:'+385',SI:'+386',LT:'+370',LV:'+371',EE:'+372',CY:'+357',MT:'+356',LU:'+352',IS:'+354',RS:'+381',MD:'+373',GE:'+995',IL:'+972',AE:'+971',NZ:'+64'};
+    try{
+     const lang=navigator.languages?.[0]||navigator.language||'';
+     const region=typeof Intl.Locale==='function'?new Intl.Locale(lang).region:(lang.match(/[-_]([a-z]{2})$/i)||[])[1];
+     prefix=codes[String(region||'').toUpperCase()]||'';
+    }catch(e){}
+   }
+   if(prefix){
+    if(!phoneInput.value.trim())phoneInput.value=prefix+' ';
+    if(phoneHint)phoneHint.textContent=source==='network'?'Suggested '+prefix+' from your network location. You can edit it.':'Suggested '+prefix+' from your browser language (IP lookup unavailable). You can edit it.';
+   }else if(phoneHint){
+    phoneHint.textContent='Country code could not be detected. Enter your full phone number starting with + and the country code.';
+   }
   }
   const endpoint=quiz.dataset.endpoint||'../submit.php';
   const thankyou=quiz.dataset.thankyou||'../thank-you.html';
@@ -112,6 +149,7 @@ function fgInitQuizzes(){
    const bar=$('.progress > div',quiz);
    if(bar)bar.style.width=(n/steps.length*100)+'%';
    if(status)status.textContent='';
+   if(n===steps.length)void fgSuggestPhoneCode();
   }
   function validation(step,message){
    let note=$('.quiz-validation',step);
@@ -169,7 +207,7 @@ function fgInitQuizzes(){
    fd.set('consent',$('input[type="checkbox"][required]',form)?.checked?'yes':'no');
    const name=String(fd.get('first_name')||'').trim();
    const email=String(fd.get('email')||'').trim();
-   const phone=(String(fd.get('dial_code')||'')+' '+String(fd.get('phone')||'')).trim();
+   const phone=String(fd.get('phone')||'').trim();
    if(status)status.textContent='Sending your request…';
    try{
     const response=await fetch(endpoint,{method:'POST',body:fd,headers:{Accept:'application/json'}});
@@ -184,7 +222,7 @@ function fgInitQuizzes(){
      'Email: '+email,
      'Phone: '+phone,
      'Article: '+(fd.get('article')||location.pathname.split('/').pop()),
-     'Phone dial code: '+(fd.get('dial_code')||'Not provided'),
+     'Phone format: International (country code included in phone number)',
      '',
      'Assessment answers:',
      'Service: '+(answers.service||'Not provided'),
