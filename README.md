@@ -18,7 +18,7 @@ The current site is deployed on GitHub Pages, which serves static files only. Th
 The homepage uses dated notices from the FCA and links to the original regulator pages. The snapshot is editorially maintained, not a live regulator API. Recheck every notice before changing the dates or status.
 
 ## Before public launch
-- Verify the publication's legal operator, working contact email and real business address.
+- Verify the publication's legal operator, working contact email and the operator-supplied business address (125 Old Broad Street, London, EC2N 1AR, United Kingdom) before launch.
 - Confirm the privacy notice against the actual hosting, email, analytics and advertising setup.
 - Add an unsubscribe process and update the privacy policy before activating a mailing-list provider.
 - Do not publish unverified warnings, invented metrics, fabricated testimonials or guaranteed outcomes.
@@ -29,7 +29,7 @@ The homepage uses dated notices from the FCA and links to the original regulator
 - The hero includes a clickable editorial photograph leading to the offshore Forex explainer. Article images open in an accessible enlarge-photo dialog when JavaScript is enabled.
 
 ## Article assessment
-- The same five-step assessment is embedded in all 30 articles; there is no country-of-residence selection. There is no phone-prefix dropdown. The phone field uses full international format, suggesting a country code from the visitor's public IP when the phone step opens (ipapi.co), with browser-language fallback and manual editing. The lookup is disclosed in the Privacy Policy; only the suggested code is cached for the current browser session.
+- The same five-step assessment is embedded in all 30 articles; there is no country-of-residence selection. There is no phone-prefix dropdown. The phone field uses full international format, suggesting a country code from the visitor's public IP when the phone step opens (ipwho.is, commercial use permitted on its limited free tier), with browser-language fallback and manual editing. The lookup is disclosed in the Privacy Policy; only the suggested code is cached for the current browser session.
 - The static GitHub Pages preview cannot run `submit.php`; the enquiry falls back to a prefilled email that the visitor must send. No lead should be counted as received until the email is actually sent and received. A production form backend is still required.
 
 ## Photo deployment

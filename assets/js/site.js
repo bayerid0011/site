@@ -100,11 +100,11 @@ function fgInitQuizzes(){
     const controller=new AbortController();
     const timer=setTimeout(()=>controller.abort(),4500);
     try{
-     const response=await fetch('https://ipapi.co/json/',{signal:controller.signal,credentials:'omit',cache:'no-store'});
+     const response=await fetch('https://ipwho.is/',{signal:controller.signal,credentials:'omit',cache:'no-store'});
      if(!response.ok)throw new Error('Geo unavailable');
      const data=await response.json();
-     if(data.error)throw new Error('Geo unavailable');
-     const candidate=String(data.country_calling_code||'').split(',')[0].replace(/\s/g,'');
+     if(data.success!==true)throw new Error('Geo unavailable');
+     const candidate='+'+String(data.calling_code||'').replace(/\D/g,'');
      if(/^\+\d{1,4}$/.test(candidate)){
       prefix=candidate;
       try{sessionStorage.setItem('fg_phone_geo',JSON.stringify({code:prefix,time:Date.now()}))}catch(e){}
