@@ -26,6 +26,14 @@ for(const file of articles){
  assert((s.match(/<img /g)||[]).length>=2,p+': missing photographs');
  assert(s.includes('name="first_name"')&&s.includes('name="email"')&&s.includes('name="phone"'),p+': missing enquiry fields');
 }
+const address='125 Old Broad Street, London, EC2N 1AR, United Kingdom';
+const htmlPages=[...readdirSync(root).filter(p=>p.endsWith('.html')),...articles.map(x=>'articles/'+x)];
+for(const p of htmlPages){
+ const html=read(p);
+ assert(!html.includes('[REPLACE BEFORE LAUNCH:'),p+': launch placeholder still present');
+ if(html.includes('<footer'))assert(html.includes(address),p+': published business address is missing');
+}
+assert(js.includes('https://ipwho.is/'),'Phone country-code lookup provider is missing');
 const pages=['index.html','investigations.html','watchlist.html','consumer-rights.html','about.html','contact.html','privacy.html',...articles.map(x=>'articles/'+x)];
 for(const p of pages){
  if(!existsSync(join(root,p)))continue;
